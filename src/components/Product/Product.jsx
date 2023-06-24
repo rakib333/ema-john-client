@@ -8,8 +8,8 @@ const Product = ({ product, handleAddToCart }) => {
             <div className="product-info">
                 <h2>{name}</h2>
                 <p>Price: ${price}</p>
-                <p>Manufacturer: {seller}</p>
-                <p><small>Rating: {ratings} stars</small></p>
+                <p>Manufacturers: {seller}</p>
+                <p><small>Ratings: {ratings} stars</small></p>
             </div>
             <button onClick={() => handleAddToCart(product)} className='btn-cart'>Add to cart</button>
         </div>
