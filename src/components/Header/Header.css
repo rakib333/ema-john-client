@@ -1,0 +1,28 @@
+.header-container {
+    width: 1240px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.container {
+    background-color: #1C2B35;
+}
+
+.header-container img {
+    padding: 10px 0px;
+}
+
+.header-container .menu a {
+    margin-right: 20px;
+    font-size: 24px;
+    color: #fff;
+    transition: all .2s ease-in;
+
+}
+
+.header-container .menu a:hover {
+    color: blue;
+}
