@@ -1,0 +1,19 @@
+import './Product.css'
+
+const Product = ({ product }) => {
+    const { name, seller, price, ratings, img } = product;
+    return (
+        <div className="product">
+            <img src={img} alt="" />
+            <div className="product-info">
+                <h2>{name}</h2>
+                <p>Price: ${price}</p>
+                <p>Manufacturer: {seller}</p>
+                <p><small>Rating: {ratings} stars</small></p>
+            </div>
+            <button className='btn-cart'>Add to cart</button>
+        </div>
+    );
+};
+
+export default Product;
