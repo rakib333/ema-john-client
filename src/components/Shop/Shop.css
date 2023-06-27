@@ -18,4 +18,6 @@
 
 .cart-container {
     padding-top: 50px;
+    padding-left: 15px;
+    background-color: rgb(99, 187, 199, .5);
 }

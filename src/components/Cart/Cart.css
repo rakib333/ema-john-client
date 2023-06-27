@@ -1,0 +1,15 @@
+.cart {
+    position: sticky;
+    top: 0;
+}
+
+.cart h2 {
+    margin: 10px 0;
+}
+
+.cart p {
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 500;
+    color: rgb(4, 0, 255);
+}
