@@ -8,3 +8,16 @@
     padding: 20px;
     border-radius: 15px;
 }
+
+.proceed-checkout {
+    border-radius: 4px;
+    background: #F90;
+    border: none;
+    margin-top: 20px;
+    padding: 15px;
+    width: 90%;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}

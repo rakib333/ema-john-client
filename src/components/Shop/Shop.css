@@ -21,3 +21,16 @@
     padding-left: 15px;
     background-color: rgb(99, 187, 199, .5);
 }
+
+.proceed-orders {
+    border-radius: 4px;
+    background: #F90;
+    border: none;
+    margin-top: 20px;
+    padding: 15px;
+    width: 90%;
+    text-align: center;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
