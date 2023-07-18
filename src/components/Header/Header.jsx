@@ -1,5 +1,6 @@
 import './Header.css';
 import logo from '../../images/Logo.svg';
+import ActiveLink from '../ActiveLink/ActiveLink';
 
 const Header = () => {
     return (
@@ -7,10 +8,10 @@ const Header = () => {
             <div className="header-container">
                 <img src={logo} alt="" />
                 <div className='menu'>
-                    <a href="/home">Home</a>
-                    <a href="/shop">Shop</a>
-                    <a href="/inventory">Inventory</a>
-                    <a href="/login">Login</a>
+                    <ActiveLink to="/">Shop</ActiveLink>
+                    <ActiveLink to="/orders">Orders</ActiveLink>
+                    <ActiveLink to="/inventory">Inventory</ActiveLink>
+                    <ActiveLink to="/login">Login</ActiveLink>
                 </div>
             </div>
         </nav>
