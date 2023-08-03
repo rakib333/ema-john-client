@@ -1,8 +1,23 @@
 import './Header.css';
 import logo from '../../images/Logo.svg';
 import ActiveLink from '../ActiveLink/ActiveLink';
+import { useContext } from 'react';
+import { AuthContext } from '../../providers/AuthProviders';
 
 const Header = () => {
+    const { user, logOut } = useContext(AuthContext);
+    const handleSignOut = () => {
+        logOut()
+            .then(() => {
+                alert('log out successful')
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+
+
     return (
         <nav className="container">
             <div className="header-container">
@@ -12,6 +27,8 @@ const Header = () => {
                     <ActiveLink to="/orders">Orders</ActiveLink>
                     <ActiveLink to="/inventory">Inventory</ActiveLink>
                     <ActiveLink to="/login">Login</ActiveLink>
+                    <ActiveLink to="/signup">Sign Up</ActiveLink>
+                    {user && <span >{user.email} <button className='btn-logOut' onClick={handleSignOut}>Sign Out</button></span>}
                 </div>
             </div>
         </nav>

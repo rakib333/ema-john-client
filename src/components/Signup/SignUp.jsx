@@ -1,46 +1,50 @@
-// import React from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import './Login.css'
+import { Link } from 'react-router-dom';
+import './SignUp.css'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 
-const Login = () => {
-
+const SignUp = () => {
     const [error, setError] = useState('');
 
-    const { signIn } = useContext(AuthContext);
-    const navigate = useNavigate();
-    const location = useLocation();
+    const { createUser } = useContext(AuthContext);
 
-    let from = location.state?.from?.pathname || '/';
-
-    const handleLogin = e => {
+    const handleSignUp = e => {
         e.preventDefault();
         const form = e.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password)
+        const confirmPass = form.confirmPassword.value;
+        console.log(email, password, confirmPass)
 
-        signIn(email, password)
+        setError('')
+        if (password !== confirmPass) {
+            setError('Password did not match!!!')
+            return
+        }
+        else if (password.length < 6) {
+            setError('Password must have 6 characters')
+            return
+        }
+
+        createUser(email, password)
             .then(result => {
                 const loggedUser = result.user;
                 console.log(loggedUser)
-                form.reset();
-                navigate(from, { replace: true })
+                form.reset()
             })
             .catch(error => {
-                console.log(error)
+                console.log(error.message)
                 setError(error.message)
-
             })
-    }
 
+
+    }
     return (
         <div className='form-container wrapper'>
 
             <div className='main-form'>
-                <h2 className='form-title'>Login</h2>
-                <form onSubmit={handleLogin}>
+                <h2 className='form-title'>Sign Up</h2>
+                <form onSubmit={handleSignUp}>
                     <div className='form-control'>
                         <label htmlFor="email">Email</label>
                         <input type="email" name="email" id="email" placeholder='Your email' />
@@ -50,11 +54,15 @@ const Login = () => {
                         <input type="password" name="password" id="password" placeholder='Password' />
                     </div>
                     <div className='form-control'>
-                        <input className='btn-submit' type="submit" value="Login" />
+                        <label htmlFor="confirm-password">Confirm Password</label>
+                        <input type="password" name="confirmPassword" id="confirm-password" placeholder='Confirm password' />
+                    </div>
+                    <div className='form-control'>
+                        <input className='btn-submit' type="submit" value="Sign Up" />
                     </div>
                 </form>
-                <p>{error}</p>
-                <p className='goToLink'>New To ema john?<Link className='toggle-page' to='/signup'>Sign Up</Link></p>
+                <p className='error'>{error}</p>
+                <p className='goToLink'>Already have an account?<Link className='toggle-page' to='/login'>Login</Link></p>
                 <div className='horizontal-line'>
                     <hr />
                     <span>or</span>
@@ -62,6 +70,7 @@ const Login = () => {
                 </div>
 
                 <div className='form-control'>
+                    {/* <FontAwesomeIcon icon={FaGoogle} /> */}
                     <input className='btn-google' type="submit" value="Continue with google" />
                 </div>
             </div>
@@ -69,4 +78,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default SignUp;
