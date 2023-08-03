@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './SignUp.css'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
@@ -7,6 +7,7 @@ const SignUp = () => {
     const [error, setError] = useState('');
     const [show, setShow] = useState(false);
     const [cshow, setCshow] = useState(false);
+    const navigate = useNavigate();
 
     const { createUser } = useContext(AuthContext);
 
@@ -33,6 +34,8 @@ const SignUp = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser)
                 form.reset()
+                navigate('/login')
+
             })
             .catch(error => {
                 console.log(error.message)
