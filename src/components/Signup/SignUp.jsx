@@ -5,6 +5,8 @@ import { AuthContext } from '../../providers/AuthProviders';
 
 const SignUp = () => {
     const [error, setError] = useState('');
+    const [show, setShow] = useState(false);
+    const [cshow, setCshow] = useState(false);
 
     const { createUser } = useContext(AuthContext);
 
@@ -51,11 +53,17 @@ const SignUp = () => {
                     </div>
                     <div className='form-control'>
                         <label htmlFor="password">Password</label>
-                        <input type="password" name="password" id="password" placeholder='Password' />
+                        <input type={show ? 'text' : "password"} name="password" id="password" placeholder='Password' />
+                        <p onClick={() => setShow(!show)}>
+                            <small>{show ? 'Hide pass' : 'Show pass'}</small>
+                        </p>
                     </div>
                     <div className='form-control'>
                         <label htmlFor="confirm-password">Confirm Password</label>
-                        <input type="password" name="confirmPassword" id="confirm-password" placeholder='Confirm password' />
+                        <input type={cshow ? 'text' : "password"} name="confirmPassword" id="confirm-password" placeholder='Confirm password' />
+                        <p onClick={() => setCshow(!cshow)}>
+                            <small>{cshow ? 'Hide pass' : 'Show pass'}</small>
+                        </p>
                     </div>
                     <div className='form-control'>
                         <input className='btn-submit' type="submit" value="Sign Up" />
