@@ -28,7 +28,8 @@ const Header = () => {
                     <ActiveLink to="/inventory">Inventory</ActiveLink>
                     <ActiveLink to="/login">Login</ActiveLink>
                     <ActiveLink to="/signup">Sign Up</ActiveLink>
-                    {user && <span >{user.email} <button className='btn-logOut' onClick={handleSignOut}>Sign Out</button></span>}
+                    {user &&
+                        <span >{user.email} <button className='btn-logOut' onClick={handleSignOut}>Sign Out</button></span>}
                 </div>
             </div>
         </nav>

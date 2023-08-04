@@ -3,13 +3,15 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Login.css'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Login = () => {
 
     const [error, setError] = useState('');
     const [show, setShow] = useState(false);
 
-    const { signIn } = useContext(AuthContext);
+    const { signIn, googleLogIn } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -25,6 +27,11 @@ const Login = () => {
         signIn(email, password)
             .then(result => {
                 const loggedUser = result.user;
+
+                if (!loggedUser.emailVerified) {
+
+                    return toast.error('Please verify your email first')
+                }
                 console.log(loggedUser)
                 form.reset();
                 navigate(from, { replace: true })
@@ -33,6 +40,18 @@ const Login = () => {
                 console.log(error)
                 setError(error.message)
 
+            })
+    }
+
+    const handleGoogleLogIn = () => {
+        googleLogIn()
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser)
+            })
+            .catch(error => {
+                console.log(error)
+                setError(error.message)
             })
     }
 
@@ -66,9 +85,10 @@ const Login = () => {
                 </div>
 
                 <div className='form-control'>
-                    <input className='btn-google' type="submit" value="Continue with google" />
+                    <input onClick={handleGoogleLogIn} className='btn-google' type="submit" value="Continue with google" />
                 </div>
             </div>
+            <ToastContainer />
         </div>
     );
 };

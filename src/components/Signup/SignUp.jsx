@@ -2,6 +2,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import './SignUp.css'
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { sendEmailVerification } from 'firebase/auth';
 
 const SignUp = () => {
     const [error, setError] = useState('');
@@ -9,7 +12,8 @@ const SignUp = () => {
     const [cshow, setCshow] = useState(false);
     const navigate = useNavigate();
 
-    const { createUser } = useContext(AuthContext);
+    const { createUser, googleLogIn } = useContext(AuthContext);
+
 
     const handleSignUp = e => {
         e.preventDefault();
@@ -34,6 +38,7 @@ const SignUp = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser)
                 form.reset()
+                emailVerification(loggedUser)
                 navigate('/login')
 
             })
@@ -41,9 +46,33 @@ const SignUp = () => {
                 console.log(error.message)
                 setError(error.message)
             })
-
-
     }
+
+    const handleGoogleLogIn = () => {
+        googleLogIn()
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser)
+            })
+            .catch(error => {
+                console.log(error)
+                setError(error.message)
+            })
+    }
+
+    const emailVerification = user => {
+        sendEmailVerification(user)
+            .then(() => {
+                toast.success('verification send')
+            })
+            .catch(error => {
+                console.log(error.message)
+            })
+    }
+
+
+
+
     return (
         <div className='form-container wrapper'>
 
@@ -82,8 +111,10 @@ const SignUp = () => {
 
                 <div className='form-control'>
                     {/* <FontAwesomeIcon icon={FaGoogle} /> */}
-                    <input className='btn-google' type="submit" value="Continue with google" />
+                    <input onClick={handleGoogleLogIn} className='btn-google' type="submit" value="Continue with google" />
                 </div>
+
+                <ToastContainer />
             </div>
         </div>
     );
