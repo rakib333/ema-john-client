@@ -29,12 +29,16 @@ const AuthProviders = ({ children }) => {
     }
 
     const logOut = () => {
+        setLoading(true)
         return signOut(auth)
     }
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
+            if (currentUser?.emailVerified || currentUser === null) {
+                setUser(currentUser)
+
+            }
             setLoading(false)
         })
         return () => {
