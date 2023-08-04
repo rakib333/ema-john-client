@@ -1,7 +1,7 @@
 // import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Login.css'
-import { useContext, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { AuthContext } from '../../providers/AuthProviders';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -11,9 +11,10 @@ const Login = () => {
     const [error, setError] = useState('');
     const [show, setShow] = useState(false);
 
-    const { signIn, googleLogIn } = useContext(AuthContext);
+    const { signIn, googleLogIn, resetPassword } = useContext(AuthContext);
     const navigate = useNavigate();
     const location = useLocation();
+    const emailRef = useRef();
 
     let from = location.state?.from?.pathname || '/';
 
@@ -55,6 +56,19 @@ const Login = () => {
             })
     }
 
+    const resetPass = () => {
+        const email = emailRef.current.value;
+        console.log(email)
+        resetPassword(email)
+            .then(() => {
+                toast.info('Reset password mail send')
+            })
+            .catch(error => {
+                console.log(error)
+                setError(error.message)
+            })
+    }
+
     return (
         <div className='form-container wrapper'>
 
@@ -63,7 +77,7 @@ const Login = () => {
                 <form onSubmit={handleLogin}>
                     <div className='form-control'>
                         <label htmlFor="email">Email</label>
-                        <input type="email" name="email" id="email" placeholder='Your email' />
+                        <input ref={emailRef} type="email" name="email" id="email" placeholder='Your email' />
                     </div>
                     <div className='form-control'>
                         <label htmlFor="password">Password</label>
@@ -78,6 +92,7 @@ const Login = () => {
                 </form>
                 <p>{error}</p>
                 <p className='goToLink'>New To ema john?<Link className='toggle-page' to='/signup'>Sign Up</Link></p>
+                <p className='goToLink'>Forget password?<button onClick={resetPass} className='toggle-page' >Reset</button></p>
                 <div className='horizontal-line'>
                     <hr />
                     <span>or</span>
